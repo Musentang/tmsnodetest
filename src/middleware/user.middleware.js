@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 const { getUserInfo } = require('../service/user.service');
 const { userFormatError, userAlreadyExists, registerError } = require('../constants/err.type')
 const userValidator = async (ctx, next) => {
@@ -32,7 +33,17 @@ const verifyUser = async (ctx, next) => {
 	await next();
 };
 
+const bcryptPassword = async (ctx, next) => {
+	var bcrypt = require('bcryptjs');
+	var salt = bcrypt.genSaltSync(10);
+	var hash = bcrypt.hashSync("B4c0/\/", salt);
+	console.log('password hash:', hash);
+	ctx.request.body.password = hash;
+	await next();
+};
+
 module.exports = {
 	userValidator,
-	verifyUser
+	verifyUser,
+	bcryptPassword
 };

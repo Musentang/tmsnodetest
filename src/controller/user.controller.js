@@ -1,5 +1,5 @@
 const { createUser } = require('../service/user.service');
-const { registerError } = require('../constants/err.type')
+const { registerError } = require('../constants/err.type');
 
 class UserController {
 	async register(ctx, next) {

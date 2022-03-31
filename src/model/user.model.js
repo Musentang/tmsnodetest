@@ -10,7 +10,7 @@ const User = seq.define('tms_user', {
 		comment: 'User Name unique'
 	},
 	password: {
-		type: DataTypes.STRING(64),
+		type: DataTypes.STRING(256),
 		allowNull: false,
 		comment: 'password'
 	},

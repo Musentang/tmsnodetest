@@ -20,7 +20,8 @@ class UserController {
 		}
 	}
 	async login(ctx, next) {
-		ctx.body = 'user login success';
+		const { user_name } = ctx.request.body;
+		ctx.body = `Welcome ${user_name}`;
 	}
 }
 

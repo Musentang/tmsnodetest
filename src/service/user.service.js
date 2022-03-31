@@ -2,6 +2,7 @@ const User = require('../model/user.model');
 
 class UserService {
 	async createUser(user_name, password) {
+		console.log(password);
 		const { dataValues } = await User.create({ user_name, password });
 		return dataValues;
 	}

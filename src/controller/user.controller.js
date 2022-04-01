@@ -1,6 +1,7 @@
-const { createUser } = require('../service/user.service');
+const { createUser, getUserInfo } = require('../service/user.service');
 const { registerError } = require('../constants/err.type');
-
+const jwt = require('jsonwebtoken');
+const { JWT_SECRET } = require('../config/config.default');
 class UserController {
 	async register(ctx, next) {
 		const { user_name, password } = ctx.request.body;
@@ -21,7 +22,20 @@ class UserController {
 	}
 	async login(ctx, next) {
 		const { user_name } = ctx.request.body;
-		ctx.body = `Welcome ${user_name}`;
+		// 1.get user info
+		try{
+			const { password, ...res } = await getUserInfo({ user_name });
+			console.log(res);
+			ctx.body = {
+				code: 0,
+				message: 'login success',
+				result: {
+					token: jwt.sign(res, JWT_SECRET, { expiresIn: '1d' })
+				}
+			};
+		} catch(err) {
+			console.error('login error');
+		}
 	}
 }
 

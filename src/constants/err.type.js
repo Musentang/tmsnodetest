@@ -28,5 +28,15 @@ module.exports = {
 		code: 10006,
 		message: 'Invalid Password',
 		result: ''
+	},
+	tokenExpiredError: {
+		code: 10101,
+		message: 'Token Expired',
+		result: ''
+	},
+	jsonWebTokenError: {
+		code: 10102,
+		message: 'Invalid Token',
+		result: ''
 	}
 };

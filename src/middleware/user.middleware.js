@@ -37,7 +37,7 @@ const bcryptPassword = async (ctx, next) => {
 	var bcrypt = require('bcryptjs');
 	var salt = bcrypt.genSaltSync(10);
 	var hash = bcrypt.hashSync(ctx.request.body.password, salt);
-	console.log('password hash:', hash);
+	// console.log('password hash:', hash);
 	ctx.request.body.password = hash;
 	await next();
 };

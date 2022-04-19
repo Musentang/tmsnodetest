@@ -7,7 +7,7 @@ const auth = async (ctx, next) => {
 	const token = ctx.request.header.authorization.replace('Bearer ', '');
 	try {
 		const user = jwt.verify(token, JWT_SECRET);
-		console.log(user);
+		// console.log(user);
 		ctx.state.user = user;
 	} catch(err) {
 		console.error(err);

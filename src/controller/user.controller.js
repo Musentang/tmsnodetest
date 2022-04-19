@@ -1,4 +1,4 @@
-const { createUser, getUserInfo } = require('../service/user.service');
+const { createUser, getUserInfo, updateById } = require('../service/user.service');
 const { registerError } = require('../constants/err.type');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../config/config.default');
@@ -20,6 +20,7 @@ class UserController {
 			ctx.app.emit('error', registerError, ctx);
 		}
 	}
+
 	async login(ctx, next) {
 		const { user_name } = ctx.request.body;
 		// 1.get user info
@@ -35,6 +36,27 @@ class UserController {
 			};
 		} catch(err) {
 			console.error('login error');
+		}
+	}
+
+	async changePassword(ctx, next) {
+		const { id } = ctx.state.user;
+		console.log(id);
+		const password = ctx.request.body.password;
+		console.log(password);
+		const res = await updateById({id, password});
+		if (res) {
+			ctx.body = {
+				code: 0,
+				message: 'change success',
+				result: ''
+			};
+		} else {
+			ctx.body = {
+				code: 10007,
+				message: 'change password fail',
+				result: ''
+			};
 		}
 	}
 }
